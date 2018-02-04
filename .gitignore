@@ -1,0 +1,17 @@
+bin/
+include/
+lib/
+.idea/
+
+data/tns/*
+data/tnm/*
+data/tnl/*
+
+.Python
+pip-selfcheck.json
+task_scheduler.db
+
+*.pyc
+__pychache__
+
+!.gitkeep
