@@ -15,7 +15,6 @@ logging.basicConfig(
 def scheduler():
     semaphore = threading.BoundedSemaphore(MAX_CONNECTION)
     lock = threading.Lock()
-    condition = threading.Condition()
     conn, cursor = connect()
     active_threads = list()
 
@@ -33,7 +32,7 @@ def scheduler():
     else:
         logging.info('No pending photos with status=0 statement.')
 
-    threading.Thread(target=listener, name='listener', args=(condition, active_threads)).start()
+    threading.Thread(target=listener, name='listener', args=(lock, active_threads)).start()
 
 
 if __name__ == '__main__':
