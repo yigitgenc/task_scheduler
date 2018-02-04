@@ -15,6 +15,7 @@ Load `seed.sql` by typing `.read seed.sql`
 SQLite version 3.19.3 2017-06-27 16:48:08
 Enter ".help" for usage hints.
 $ sqlite> .read seed.sql
+$ Ctrl-D
 ```
 
 Install `virtualenv` into the project and activate it.
@@ -23,9 +24,14 @@ $ virtualenv .
 $ source bin/activate
 ```
 
+Install requirements.
+```
+$ pip install -r requirements.txt
+```
+
 To run scheduler, type:
 ```
-$ python src/sheduler.py
+$ python src/scheduler.py
 ```
 
 Cheers! :beers:
