@@ -4,7 +4,7 @@ import threading
 from db import connect
 from tasks import task_a, listener
 
-MAX_CONNECTION = 3
+MAX_CONNECTIONS = 3
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -19,7 +19,7 @@ def scheduler():
     :return:
     """
     
-    semaphore = threading.BoundedSemaphore(MAX_CONNECTION)
+    semaphore = threading.BoundedSemaphore(MAX_CONNECTIONS)
     lock = threading.Lock()
     conn, cursor = connect()
     active_threads = list()
