@@ -2,9 +2,8 @@ import logging
 import threading
 
 from db import connect
+from settings import MAX_CONNECTIONS
 from tasks import task_a, listener
-
-MAX_CONNECTIONS = 3
 
 logging.basicConfig(
     level=logging.DEBUG,

@@ -7,12 +7,7 @@ import threading
 from PIL import Image
 
 from db import connect
-
-THUMBNAIL_SIZES = [
-    dict(folder_name='tns', size=(200, 200)),
-    dict(folder_name='tnm', size=(600, 600)),
-    dict(folder_name='tnl', size=(2000, 2000))
-]
+from settings import THUMBNAIL_SIZES
 
 logging.basicConfig(
     level=logging.DEBUG,
