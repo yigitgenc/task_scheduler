@@ -3,7 +3,7 @@ import logging
 import threading
 
 from db import connect
-from settings import MAX_CONNECTIONS, RESTART_DELAY
+from settings import MAX_CONNECTIONS, MAX_THREADS, RESTART_DELAY
 from tasks import task_a, task_b
 
 logging.basicConfig(
@@ -33,7 +33,7 @@ def service_a(event, lock, active_threads):
 
             conn, cursor = connect()
             pending_photos = cursor.execute(
-                'SELECT id, filename FROM pending_photos WHERE status=0 ORDER BY id ASC;'
+                'SELECT id, filename FROM pending_photos WHERE status=0 ORDER BY id ASC LIMIT {};'.format(MAX_THREADS)
             ).fetchall()
             conn.close()
 
