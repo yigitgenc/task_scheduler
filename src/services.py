@@ -3,7 +3,7 @@ import logging
 import threading
 
 from db import connect
-from settings import MAX_CONNECTIONS, MAX_THREADS, RESTART_DELAY
+from settings import MAX_CONNECTIONS, MAX_THREADS
 from tasks import task_a, task_b
 
 logging.basicConfig(
@@ -29,6 +29,7 @@ def service_a(event, lock, active_threads):
         with lock:
             # Skip it if there are any active threads.
             if active_threads:
+                time.sleep(0.5)
                 continue
 
             conn, cursor = connect()
@@ -42,11 +43,6 @@ def service_a(event, lock, active_threads):
                 threading.Thread(target=task_a, name='task_a-{}'.format(row['id']), args=(
                     semaphore, lock, active_threads, row
                 )).start()
-        else:
-            logging.info('No pending photos found with status=0 statement. '
-                         'Restarting service_a in {} seconds.'.format(RESTART_DELAY))
-
-            time.sleep(int(RESTART_DELAY))
 
         time.sleep(0.5)
 
@@ -69,6 +65,7 @@ def service_b(event, lock, active_threads):
         with lock:
             # Skip it if there are more than two active threads.
             if len(active_threads) > 2:
+                time.sleep(0.5)
                 continue
 
             conn, cursor = connect()
@@ -83,11 +80,6 @@ def service_b(event, lock, active_threads):
             task = threading.Thread(target=task_b, name='task_b-{}'.format(row['id']), args=(lock, row))
             task.start()
             task.join()
-        else:
-            logging.info('No pending photos found with status=1 statement. '
-                         'Restarting service_b in {} seconds.'.format(RESTART_DELAY))
-
-            time.sleep(int(RESTART_DELAY))
 
         time.sleep(0.5)
 

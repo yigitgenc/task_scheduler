@@ -6,8 +6,6 @@ MAX_CONNECTIONS = os.environ.get('SCHEDULER_MAX_CONNECTIONS', 3)
 # Maximum threads to be open.
 MAX_THREADS = os.environ.get('SCHEDULER_MAX_THREADS', 10)
 
-# Restart wait time in seconds.
-RESTART_DELAY = os.environ.get('SCHEDULER_RESTART_DELAY', 30)
 
 # Thumbnail sizes.
 THUMBNAIL_SIZES = [

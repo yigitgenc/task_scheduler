@@ -48,12 +48,6 @@ Maximum concurrent threads to be run.
 
 Maximum threads to be open.
 
-> Default: 10
-
-`SCHEDULER_RESTART_DELAY`
-
-Restart wait time in seconds.
-
 > Default: 30
 
 `SCHEDULER_THUMB_S_W`
