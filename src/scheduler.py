@@ -9,7 +9,7 @@ logging.basicConfig(
 )
 
 
-def scheduler():
+def main():
     """
     Concurrent thread management prototype.
 
@@ -30,4 +30,4 @@ def scheduler():
 
 
 if __name__ == '__main__':
-    scheduler()
+    main()
