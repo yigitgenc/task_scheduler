@@ -1,9 +1,7 @@
 import logging
 import threading
 
-from db import connect
-from settings import MAX_CONNECTIONS
-from tasks import task_a, listener
+from services import service_a, service_b
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -17,27 +15,16 @@ def scheduler():
 
     :return:
     """
-    
-    semaphore = threading.BoundedSemaphore(MAX_CONNECTIONS)
+
+    event = threading.Event()
     lock = threading.Lock()
-    conn, cursor = connect()
     active_threads = list()
 
-    pending_photos = cursor.execute(
-        'SELECT id, filename FROM pending_photos WHERE status=0 ORDER BY id ASC;'
-    ).fetchall()
+    service1 = threading.Thread(target=service_a, name='service_a', args=(event, lock, active_threads))
+    service1.start()
 
-    conn.close()
-
-    if pending_photos:
-        for row in pending_photos:
-            threading.Thread(target=task_a, name='task_a-{}'.format(row['id']), args=(
-                semaphore, lock, active_threads, row
-            )).start()
-    else:
-        logging.info('No pending photos with status=0 statement.')
-
-    threading.Thread(target=listener, name='listener', args=(lock, active_threads)).start()
+    service2 = threading.Thread(target=service_b, name='service_b', args=(event, lock, active_threads))
+    service2.start()
 
     return
 

@@ -73,62 +73,28 @@ def task_a(semaphore, lock, active_threads, row):
     return
 
 
-def task_b(lock):
+def task_b(lock, row):
     """
     Executes external binary.
 
     :param lock: instance of threading.Lock
+    :param row: row object of the SQL query result
     :return:
     """
 
     logging.debug('Starting...')
 
     with lock:
+        logging.debug('Processing <{} (#{})>'.format(row['filename'], row['id']))
+
+        # Mimics something that takes time.
+        time.sleep(random.randint(3, 10))
+
         conn, cursor = connect()
-
-        pending_photos = cursor.execute(
-            'SELECT id, filename FROM pending_photos WHERE status=1 ORDER BY id ASC;'
-        ).fetchall()
-
-        if pending_photos:
-            for row in pending_photos:
-                logging.debug('Processing {}'.format(row['filename']))
-
-                # Mimics something that takes time.
-                time.sleep(random.randint(3, 10))
-
-                cursor.execute('UPDATE pending_photos SET status=2 WHERE id={}'.format(row['id']))
-                conn.commit()
-        else:
-            logging.info('No pending photos with status=1 statement.')
-
+        cursor.execute('UPDATE pending_photos SET status=2 WHERE id={};'.format(row['id']))
+        conn.commit()
         conn.close()
 
     logging.debug('Exiting.')
 
     return
-
-
-def listener(lock, active_threads):
-    """
-    Checks the active threads of task_a and
-    runs task_b if it's lower than 2.
-
-    :param lock: instance of threading.Lock
-    :param active_threads: list
-    :return:
-    """
-
-    logging.debug('Listening active threads...')
-
-    while True:
-        with lock:
-            if len(active_threads) < 2:
-                threading.Thread(target=task_b, name='task_b', args=(lock, )).start()
-
-        if len(active_threads) == 0:
-            break
-
-        time.sleep(0.5)
-
-    logging.debug('Exiting.')
