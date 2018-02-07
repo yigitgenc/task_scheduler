@@ -2,7 +2,7 @@
 
 Concurrent thread management prototype.
 
-## Installation
+## Installing
 
 Go to project directory and type the commands below respectively.
 
@@ -29,12 +29,14 @@ Install requirements.
 $ pip install -r requirements.txt
 ```
 
+## Running
+
 To run scheduler, type:
 ```
 $ python src/scheduler.py
 ```
 
-### Environment Variables
+## Environment Variables
 
 `SCHEDULER_MAX_CONNECTIONS`
 
