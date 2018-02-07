@@ -52,43 +52,43 @@ Maximum threads to be open.
 
 `SCHEDULER_RESTART_DELAY`
 
-Restart wait time in seconds
+Restart wait time in seconds.
 
 > Default: 30
 
 `SCHEDULER_THUMB_S_W`
 
-Small thumbnail width size
+Small thumbnail width size.
 
 > Default: 200
 
 `SCHEDULER_THUMB_S_H`
 
-Small thumbnail height size
+Small thumbnail height size.
 
 > Default: 200
 
 `SCHEDULER_THUMB_M_W`
 
-Medium thumbnail width size
+Medium thumbnail width size.
 
 > Default: 600
 
 `SCHEDULER_THUMB_M_H`
 
-Medium thumbnail height size
+Medium thumbnail height size.
 
 > Default: 600
 
 `SCHEDULER_THUMB_L_W`
 
-Large thumbnail width size
+Large thumbnail width size.
 
 > Default: 2000
 
 `SCHEDULER_THUMB_L_H`
 
-Large thumbnail height size
+Large thumbnail height size.
 
 > Default: 2000
 

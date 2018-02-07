@@ -55,8 +55,8 @@ def service_a(event, lock, active_threads):
 
 def service_b(event, lock, active_threads):
     """
-    Checks the pending photos with status=0 statement periodically
-    and the active threads of task_a.
+    Checks the pending photos with status=1 statement periodically
+    and the active threads of task_a and run task_b if it's lower than 2.
 
     :param event: instance of threading.Event
     :param lock: instance of threading.Lock
