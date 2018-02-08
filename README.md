@@ -2,6 +2,8 @@
 
 Concurrent thread management prototype.
 
+[![asciicast](https://asciinema.org/a/K3Hj9EwhWPnNlxJUV4b8W1jzD.png)](https://asciinema.org/a/K3Hj9EwhWPnNlxJUV4b8W1jzD)
+
 ## Installing
 
 Go to project directory and type the commands below respectively.
